@@ -17,7 +17,7 @@ const AdminPage = observer(
       return (
         <div>
           <h2>Admins</h2>
-          <p>This message is fetched from the server if you were properly logged in</p>
+          <p>Hej!</p>
           <div className="msgFromServer">
           {userData.messageFromServer}
           </div>
