@@ -24,7 +24,7 @@ const UserPage = observer(
 
       return (
           <div>
-              <h2>Clubs</h2>
+              <h2>Clubs: (Liverpool is the best!!!)</h2>
               <ul>{lis}</ul>
           </div>
       )
