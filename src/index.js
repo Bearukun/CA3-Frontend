@@ -10,6 +10,7 @@ import About from "./pages/About";
 import UserPage from "./pages/UserPage";
 import AdminPage from "./pages/AdminPage";
 import auth from "./authorization/auth";
+import Manu from './pages/Manchester';
 
 
 function requireAuth(nextState, replace) {
@@ -30,6 +31,7 @@ ReactDOM.render((
       <Route path="about" component={About} />
       <Route path="user" component={UserPage} />
       <Route path="admin" component={AdminPage} />
+      <Route path="ManchesterUnited" component={Manu} />
     </Route>
   </Router>
 ), document.getElementById('root'))

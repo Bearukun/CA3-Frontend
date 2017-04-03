@@ -18,6 +18,7 @@ const App = observer(class App extends Component {
             </div>
             <ul className="nav navbar-nav">
               <li><Link to="/about">About</Link></li>
+              <li><Link to="/manu">Manchester United</Link></li>
                 {auth.isUser ? <li><Link to="/user">Page for Users </Link></li> : null}
                 {auth.isAdmin ? <li><Link to="/admin">Page for Admins </Link></li> : null}
             </ul>
