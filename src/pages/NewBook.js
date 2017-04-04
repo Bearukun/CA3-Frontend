@@ -1,11 +1,13 @@
 import React from "react";
 import BookStore from "./BookStore";
+import { hashHistory } from 'react-router'
 
 export default class NewBook extends React.Component{
     constructor(){
         super();
         this.state = {
             book:{
+                id: 40,
                 title: "",
                 info: "",
                 moreInfo: ""
@@ -13,10 +15,10 @@ export default class NewBook extends React.Component{
         };
     }
 
-    saveBook= ()=> {
+    saveBook= (event)=> {
         //window.alert("lkjd");
         BookStore.addBook(this.state.book);
-        event.preventDefault();
+        hashHistory.push("/products");
     }
 
     handleChange = (event) => {

@@ -14,6 +14,7 @@ import ManchesterUnited from './pages/ManchesterUnited';
 import Products from './pages/Products';
 import BookStore from './pages/BookStore';
 import BookDetails from './pages/BookDetails';
+import NewBook from "./pages/NewBook";
 
 function requireAuth(nextState, replace) {
   if (!auth.loggedIn) {
@@ -36,6 +37,7 @@ ReactDOM.render((
       <Route path="user" component={UserPage} />
       <Route path="admin" component={AdminPage} />
       <Route path="manu" component={ManchesterUnited} />
+      <Route path="products/add" component={NewBook} />
       <Route path="products" component={Products} books={books} />
       <Route path="products/details/:id" component={BookDetails} books={books} />
     </Route>
