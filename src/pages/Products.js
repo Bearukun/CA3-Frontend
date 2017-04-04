@@ -16,28 +16,41 @@ export default class Products extends React.Component {
 
     render(){
 
-        var lis = userData.books.map(function(book){
-            return(
-                <li key={book.id}>{book.title}</li>
-            )
-        })
-        return (
+
+        // var lis = userData.books.map(function(book){
+        //     return(
+        //         <li key={book.id}>{book.title} List here!</li>
+        //     )
+        //
+        // })
+
+
+    return (
             (
+
                 <div>
+
+
                     <h2>Our Products</h2>
                     <button onClick={this.onNewBook}>Add Book</button>
-                    <h4>All our great books </h4>
-                    <ul>
-                        {this.props.route.books.map((book, index) => <li key={book.id}>
-                            {book.title} <Link to={`products/details/${book.id}`}>(details)</Link></li>)}
+                    <h4>All our great books</h4>
+
+                    {/*Replaced "this.props.books" with "userData"*/}
+                    <ul>{userData.books.map((book, index) => <li key={book.id}>
+                        {book.title} <Link to={`products/details/${book.id}`}>(details)</Link></li>)}
+                        {/*{this.props.route.books.map((book, index) => <li key={book.id}>*/}
+                            {/*{book.title} <Link to={`products/details/${book.id}`}>(details)</Link></li>)}*/}
                     </ul>
 
-                    <ul>{lis}</ul>
+
+
                 </div>
+
             )
         )
     }
     onNewBook = ()=>{
         hashHistory.push('products/add');
+
     }
 }

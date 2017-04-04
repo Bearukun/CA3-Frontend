@@ -1,11 +1,20 @@
 import React from "react";
 import {Link, hashHistory} from "react-router";
 import BookStore from "./BookStore";
+import userData from '../stores/userStore';
 
 export default class BookDetails extends React.Component {
-  render() {
+    componentWillMount() {
+        /*
+         This will fetch data each time you navigate to this route
+         Move to constructor, if only required once, or add "logic" to determine when data should be "refetched"
+         */
+        userData.getBooks();
+    }
+
+    render() {
     let id = this.props.params.id;
-    let book = this.props.route.books.filter((book) => {
+    let book = userData.books.filter((book) => {
       return book.id === Number(id);
     })[0];
     return (

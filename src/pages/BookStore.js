@@ -45,7 +45,7 @@ class BookStore extends Component {
      }
 
     @computed
-    get books(){
+    get bookstoreBooks(){
         return this._books;
     }
 

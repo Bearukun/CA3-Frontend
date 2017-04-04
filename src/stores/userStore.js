@@ -1,5 +1,5 @@
 
-import { observable, action } from "mobx";
+import { observable, action, computed} from "mobx";
 import fetchHelper from "./fetchHelpers"
 const URL = require("../../package.json").serverURL;
 
@@ -65,7 +65,13 @@ class UserStore {
             this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
         })
     }
+    @computed
+    get allBooks(){
+        return this.books;
+    }
 }
+
+
 
 let userStore = new UserStore();
 
