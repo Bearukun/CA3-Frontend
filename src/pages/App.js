@@ -3,8 +3,6 @@ import { Link } from "react-router";
 import auth from '../authorization/auth'
 import { observer } from "mobx-react";
 
-import {useStrict} from "..//stores/useStrict"
-
 const App = observer(class App extends Component {
 
   render() {
@@ -14,9 +12,10 @@ const App = observer(class App extends Component {
         <nav className="navbar navbar-default" >
           <div className="container-fluid">
             <div className="navbar-header">
-              <a className="navbar-brand" href="#">My Project</a>
+              <a className="navbar-brand" href="#">Home</a>
             </div>
             <ul className="nav navbar-nav">
+              <li><Link to="/products">Products</Link></li>
               <li><Link to="/about">About</Link></li>
               <li><Link to="/manu">Manchester United</Link></li>
                 {auth.isUser ? <li><Link to="/user">Page for Users </Link></li> : null}

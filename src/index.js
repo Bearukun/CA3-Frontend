@@ -10,8 +10,10 @@ import About from "./pages/About";
 import UserPage from "./pages/UserPage";
 import AdminPage from "./pages/AdminPage";
 import auth from "./authorization/auth";
-import Manu from './pages/Manchester';
-
+import ManchesterUnited from './pages/ManchesterUnited';
+import Products from './pages/Products';
+import BookStore from './pages/BookStore';
+import BookDetails from './pages/BookDetails';
 
 function requireAuth(nextState, replace) {
   if (!auth.loggedIn) {
@@ -22,8 +24,10 @@ function requireAuth(nextState, replace) {
   }
 }
 
+var books = BookStore.books;
+
 ReactDOM.render((
-  <Router history={hashHistory}>
+  <Router books={books} history={hashHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={Home}/>
       <Route path="login" component={Login} />
@@ -31,7 +35,9 @@ ReactDOM.render((
       <Route path="about" component={About} />
       <Route path="user" component={UserPage} />
       <Route path="admin" component={AdminPage} />
-      <Route path="ManchesterUnited" component={Manu} />
+      <Route path="manu" component={ManchesterUnited} />
+      <Route path="products" component={Products} books={books} />
+      <Route path="products/details/:id" component={BookDetails} books={books} />
     </Route>
   </Router>
 ), document.getElementById('root'))

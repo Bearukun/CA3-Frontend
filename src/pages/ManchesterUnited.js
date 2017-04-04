@@ -1,6 +1,6 @@
 import React from 'react'
 
-class ManchesterUnited extends React.Component{
+export default class ManchesterUnited extends React.Component{
 
     render(){
         return(
@@ -12,5 +12,3 @@ class ManchesterUnited extends React.Component{
         )
     }
 }
-
-export default ManchesterUnited

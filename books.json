@@ -1,0 +1,22 @@
+{
+  "books": [
+    {
+      "id": 1, "title": "How to Learn JavaScript - Vol 1",
+      "info": "Study hard"
+    },
+    {
+      "id": 2, "title": "How to Learn ES6",
+      "info": "Complete all exercises :-)"
+    },
+    {
+      "id": 3, "title": "How to Learn React",
+      "info": "Complete all your CA's",
+      "moreInfo": ""
+    },
+    {
+      "id": 4, "title": "How to become a specialist in Computer Science - Vol 4",
+      "info": "Don't drink beers, until Friday (after four)",
+      "moreInfo": "5 Points = 5 beers ;-)"
+    }
+  ]
+}
