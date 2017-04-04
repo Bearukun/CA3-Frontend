@@ -1,11 +1,26 @@
 import React from "react";
-import {Link} from "react-router"
+import {Link} from "react-router";
 import {observer} from "mobx-react";
-import { hashHistory } from 'react-router'
+import { hashHistory } from 'react-router';
+import userData from '../stores/userStore';
 
 @observer
 export default class Products extends React.Component {
+    componentWillMount() {
+        /*
+         This will fetch data each time you navigate to this route
+         Move to constructor, if only required once, or add "logic" to determine when data should be "refetched"
+         */
+        userData.getBooks();
+    }
+
     render(){
+
+        var lis = userData.clubs.map(function(club){
+            return(
+                <li> <a href={club.url}>{club.name}</a></li>
+            )
+        })
         return (
             (
                 <div>
@@ -16,6 +31,8 @@ export default class Products extends React.Component {
                         {this.props.route.books.map((book, index) => <li key={book.id}>
                             {book.title} <Link to={`products/details/${book.id}`}>(details)</Link></li>)}
                     </ul>
+
+                    <ul>{lis}</ul>
                 </div>
             )
         )
