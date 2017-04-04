@@ -16,9 +16,9 @@ export default class Products extends React.Component {
 
     render(){
 
-        var lis = userData.clubs.map(function(club){
+        var lis = userData.books.map(function(book){
             return(
-                <li> <a href={club.url}>{club.name}</a></li>
+                <li key={book.id}>{book.title}</li>
             )
         })
         return (
