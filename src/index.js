@@ -41,6 +41,7 @@ ReactDOM.render((
       <Route path="admin" component={AdminPage} />
       <Route path="manu" component={ManchesterUnited} />
       <Route path="products/add" component={NewBook} />
+      <Route path="products/add/:id" component={NewBook}  />
       <Route path="products" component={Products} books={books} hello="testing" />
       <Route path="products/details/:id" component={BookDetails} books={books}  />
     </Route>

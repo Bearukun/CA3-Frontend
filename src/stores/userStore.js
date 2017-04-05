@@ -118,6 +118,50 @@ class UserStore {
         // hashHistory.push("/products");
     }
 
+    @action
+    editBook = (book)=> {
+        this.errorMessage = "";
+        this.messageFromServer = "";
+        let errorCode = 200;
+        const options = fetchHelper.makeOptions("POST", true);
+        var conf = {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: book.id,
+                title: book.title,
+                info: book.info,
+                moreInfo: book.moreInfo
+            })
+        };
+        fetch(URL + "api/demoall/edit", conf, options)
+            .then((res) => {
+                if (res.status > 210 || !res.ok) {
+                    errorCode = res.status;
+                }
+                return res.json();
+            })
+            .then(action((res) => {  //Note the action wrapper to allow for useStrict
+                if (errorCode !== 200) {
+                    throw new Error(`${res.error.message} (${res.error.code})`);
+                }
+                else {
+                    const addedBookTitle = res.title;
+                    return addedBookTitle;
+                    // this._books.replace(res);
+                    // this.getBooks();//if book successfully deleted, re-run get books to update local list from new database list
+                }
+            })).catch(err => {
+            //This is the only way (I have found) to verify server is not running
+            this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
+        })
+        // UserStore.addBook(this.state.book);
+        // hashHistory.push("/products");
+    }
+
 
     // function addPerson(){
     //     var url = "https://139.59.212.171.xip.io/TheBlankPages/api/person";

@@ -12,6 +12,35 @@ export default class BookDetails extends React.Component {
     //     UserStore.getBooks();
     // }
 
+
+    constructor(){
+        super();
+        this.state = {
+            book:{
+                title: "",
+                info: "",
+                moreInfo: ""
+            }
+        };
+    }
+
+
+
+    handleChange = (event) => {
+        // this.setState({value: event.target.value});
+
+        var book = this.state.book;
+        var id = event.target.id;
+        if(id === "title"){
+            book.title = event.target.value;
+        } if(id === "info"){
+            book.info = event.target.value;
+        } if(id === "moreInfo"){
+            book.moreInfo = event.target.value;
+        }
+        this.setState({book});
+    }
+
     render() {
         let id = this.props.params.id;
         let book = UserStore.books.filter((book) => {
@@ -25,6 +54,9 @@ export default class BookDetails extends React.Component {
               {auth.loggedIn && auth.isUser?//only show if logged in and a user
                   <button id={id} onClick={this.removeBook}>Remove book</button>
               : null}
+              {auth.loggedIn && auth.isUser?//only show if logged in and a user
+                  <Link to={`/products/add/${id}`}>Edit Book</Link>
+                  : null}
             <br />
             <Link to="/products">Products</Link>
           </div>
@@ -33,10 +65,26 @@ export default class BookDetails extends React.Component {
 
   removeBook(event) {
       const id = event.target.id;//save id of button, which is identical to the id of the book to be deleted
-      // UserStore.deleteBook(id);
+
       const deletedBookTitle = UserStore.deleteBook(id);
       console.log(deletedBookTitle);
-      // window.alert(feedback);
+
       hashHistory.push('/products');
   }
+
+    editBook(event) {
+        const id = event.target.id;//save id of button, which is identical to the id of the book to be deleted
+
+        UserStore.editBook(this.state.book);
+
+
+        hashHistory.push('/products');
+    }
+
+    // onEditBook = (event)=>{
+    //     const id = event.target.id;//save id of button, which is identical to the id of the book to be deleted
+    //
+    //     const editedBookTitle = UserStore.editBook(id);
+    //     hashHistory.push('products/add');
+    // }
 }

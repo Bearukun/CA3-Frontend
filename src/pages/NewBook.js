@@ -7,6 +7,7 @@ class NewBook extends React.Component{
         super();
         this.state = {
             book:{
+                id: 32,
                 title: "",
                 info: "",
                 moreInfo: ""
@@ -32,6 +33,28 @@ class NewBook extends React.Component{
 }
 
 render(){
+
+    let id = this.props.params.id;
+    let book = UserStore.books.filter((book) => {
+        return book.id === Number(id);
+    })[0];
+    if(id != null) {
+        return (
+            <div>
+                <h2>Edit Book</h2>
+                <form>
+                    <input onChange={this.handleChange} id="title" type="text" defaultValue={book.title}/><br/>
+                    <input onChange={this.handleChange} id="info" type="text" defaultValue={book.info}/><br/>
+                    <input onChange={this.handleChange} id="moreInfo" type="text" defaultValue={book.moreInfo}/><br/>
+                    <button id="AddBookButton" onClick={this.editBook}>Save book</button>
+                    <p>{JSON.stringify(this.state.book)}</p>
+                </form>
+            </div>
+        )
+
+    } else {
+
+
         return (
             <div>
                 <h2>New Book</h2>
@@ -45,12 +68,19 @@ render(){
             </div>
         )
     }
+}
 
     addBook = (event)=> {
         event.preventDefault();
         // console.log(event.target.id);//target refers to the button pressed
         console.log(this.state.book);//target refers to the button pressed
         UserStore.addBook(this.state.book);
+        hashHistory.push('/products');
+    }
+
+    editBook = (event)=> {
+        event.preventDefault();
+        UserStore.editBook(this.state.book);
         hashHistory.push('/products');
     }
 }
