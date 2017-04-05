@@ -44,19 +44,8 @@ class UserStore {
     }
 
     @action
-    deleteBook = (id)=>{
+    deleteBook = (id) => {
         console.log("book id: "+id);//check the id to ensure we've got hold of the right book to delete
-        // const bookToDelete = this._books.filter((book)=>{//bookToDelete is an array with only one element in this case!!!
-        //     return book.id === Number(id);
-        // })
-        // console.log(bookToDelete[0].title);
-
-        // this._books.remove(bookToDelete[0]);
-        return this.removeBook(id);
-    }
-
-    @action
-    removeBook = (id) => {
         this.errorMessage = "";
         this.messageFromServer = "";
         let errorCode = 200;
@@ -73,8 +62,8 @@ class UserStore {
                     throw new Error(`${res.error.message} (${res.error.code})`);
                 }
                 else {
-                    const outcome = res.title;
-                    return outcome;
+                    const deletedBookTitle = res.title;
+                    return deletedBookTitle;
                     // this._books.replace(res);
                     // this.getBooks();//if book successfully deleted, re-run get books to update local list from new database list
                 }
@@ -84,6 +73,11 @@ class UserStore {
         })
     }
 
+    addBook = (book)=> {
+        console.log(book.title);
+        // UserStore.addBook(this.state.book);
+        // hashHistory.push("/products");
+    }
 
 
     @action
@@ -96,7 +90,4 @@ class UserStore {
         return this._books.length
     }
 }
-// let userStore = new UserStore();
-//Only for debugging
-//window.userStore = userStore;
 export default new UserStore();

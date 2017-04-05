@@ -2,7 +2,7 @@ import React from "react";
 import UserStore from '../stores/userStore';
 import { hashHistory } from 'react-router'
 
-export default class NewBook extends React.Component{
+class NewBook extends React.Component{
     constructor(){
         super();
         this.state = {
@@ -15,11 +15,7 @@ export default class NewBook extends React.Component{
         };
     }
 
-    saveBook= (event)=> {
-        //window.alert("lkjd");
-        UserStore.addBook(this.state.book);
-        hashHistory.push("/products");
-    }
+
 
     handleChange = (event) => {
     // this.setState({value: event.target.value});
@@ -44,10 +40,22 @@ render(){
                     <input onChange={this.handleChange} id="title" type="text" placeholder="title"/><br/>
                     <input onChange={this.handleChange} id="info" type="text" placeholder="info"/><br/>
                     <input onChange={this.handleChange} id="moreInfo" type="text" placeholder="moreInfo"/><br/>
-                    <button onClick={this.saveBook}>Save book</button>
+                    <button id="AddBookButton" onClick={this.addBook}>Save book</button>
                     <p>{JSON.stringify(this.state.book)}</p>
                 </form>
             </div>
         )
     }
+
+    addBook(event) {
+        event.preventDefault();
+        console.log(event.target);
+        //const book = event.props.book.title;//save id of button, which is identical to the id of the book to be deleted
+        // UserStore.deleteBook(id);
+        const addedBookTitle = UserStore.addBook(this.state.book);
+        // console.log(deletedBookTitle);
+        // window.alert(feedback);
+        hashHistory.push('/products');
+    }
 }
+export default NewBook();
