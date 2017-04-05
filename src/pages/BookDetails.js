@@ -1,6 +1,7 @@
 import React from "react";
 import {Link, hashHistory} from "react-router";
 import UserStore from '../stores/userStore';
+import auth from '../authorization/auth';
 
 export default class BookDetails extends React.Component {
     // componentWillMount() {
@@ -21,7 +22,9 @@ export default class BookDetails extends React.Component {
             <h3 style={{color: "steelblue"}}>Detailed info for the title: {book.title}</h3>
             <h4> {book.info}</h4>
             <h4>{book.moreInfo}</h4>
-              <button id={id} onClick={this.removeBook}>Remove book</button>
+              {auth.loggedIn && auth.isUser?//only show if logged in and a user
+                  <button id={id} onClick={this.removeBook}>Remove book</button>
+              : null}
             <br />
             <Link to="/products">Products</Link>
           </div>
@@ -31,6 +34,9 @@ export default class BookDetails extends React.Component {
   removeBook(event) {
       const id = event.target.id;//save id of button, which is identical to the id of the book to be deleted
       UserStore.deleteBook(id);
+      // const feedback = UserStore.deleteBook(id);
+      //console.log(feedback);
+      // window.alert(feedback);
       hashHistory.push('/products');
   }
 }

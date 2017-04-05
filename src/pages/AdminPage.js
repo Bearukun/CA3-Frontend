@@ -16,7 +16,7 @@ const AdminPage = observer(
     render() {
       return (
         <div>
-          <h2>Admins</h2>
+          <h2>User administration</h2>
           <p>Hej!</p>
           <div className="msgFromServer">
           {UserStore.messageFromServer}

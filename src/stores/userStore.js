@@ -52,7 +52,7 @@ class UserStore {
         // console.log(bookToDelete[0].title);
 
         // this._books.remove(bookToDelete[0]);
-        this.removeBook(id);
+        return this.removeBook(id);
     }
 
     @action
@@ -73,7 +73,8 @@ class UserStore {
                     throw new Error(`${res.error.message} (${res.error.code})`);
                 }
                 else {
-                    console.log("Book successfully deleted: "+res.title);
+                    const outcome = res.title;
+                    return outcome;
                     // this._books.replace(res);
                     // this.getBooks();//if book successfully deleted, re-run get books to update local list from new database list
                 }

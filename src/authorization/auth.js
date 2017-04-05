@@ -26,7 +26,7 @@ class AuthenticationHandler {
 
   @action
   initDataFromToken = () => {
-    console.log("Initializing Data From Token");
+    // console.log("Initializing Data From Token");
     if (!localStorage.token) {
       return;
     }
@@ -53,7 +53,7 @@ class AuthenticationHandler {
 
   @action
   logout = () => {
-    console.log("Logout");
+    // console.log("Logout");
     delete localStorage.token;
     this.token = null;
     this.userName = "";
@@ -66,7 +66,7 @@ class AuthenticationHandler {
   login = (username, password, cb) => {
     var self = this; //Required because of exception handling below, which looses this
     this.setFailedLogin(false, "");
-    console.log("Login: " + self.token)
+    // console.log("Login: " + self.token)
     cb = arguments[arguments.length - 1]
     if (this.token != null) {
       if (cb) cb(true)
