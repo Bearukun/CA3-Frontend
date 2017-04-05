@@ -7,7 +7,7 @@ class NewBook extends React.Component{
         super();
         this.state = {
             book:{
-                id: 32,
+                id: "",
                 title: "",
                 info: "",
                 moreInfo: ""
@@ -22,6 +22,7 @@ class NewBook extends React.Component{
 
         var book = this.state.book;
         var id = event.target.id;
+
         if(id === "title"){
             book.title = event.target.value;
         } if(id === "info"){
@@ -46,7 +47,7 @@ render(){
                     <input onChange={this.handleChange} id="title" type="text" defaultValue={book.title}/><br/>
                     <input onChange={this.handleChange} id="info" type="text" defaultValue={book.info}/><br/>
                     <input onChange={this.handleChange} id="moreInfo" type="text" defaultValue={book.moreInfo}/><br/>
-                    <button id="AddBookButton" onClick={this.editBook}>Save book</button>
+                    <button id={id} onClick={this.editBook}>Save book</button>
                     <p>{JSON.stringify(this.state.book)}</p>
                 </form>
             </div>
@@ -62,7 +63,7 @@ render(){
                     <input onChange={this.handleChange} id="title" type="text" placeholder="title"/><br/>
                     <input onChange={this.handleChange} id="info" type="text" placeholder="info"/><br/>
                     <input onChange={this.handleChange} id="moreInfo" type="text" placeholder="moreInfo"/><br/>
-                    <button id="AddBookButton" onClick={this.addBook}>Save book</button>
+                    <button id={id} onClick={this.addBook}>Save book</button>
                     <p>{JSON.stringify(this.state.book)}</p>
                 </form>
             </div>
@@ -80,6 +81,7 @@ render(){
 
     editBook = (event)=> {
         event.preventDefault();
+        this.state.book.id = event.target.id;
         UserStore.editBook(this.state.book);
         hashHistory.push('/products');
     }

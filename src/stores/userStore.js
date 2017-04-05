@@ -149,10 +149,8 @@ class UserStore {
                     throw new Error(`${res.error.message} (${res.error.code})`);
                 }
                 else {
-                    const addedBookTitle = res.title;
-                    return addedBookTitle;
-                    // this._books.replace(res);
-                    // this.getBooks();//if book successfully deleted, re-run get books to update local list from new database list
+                    // if (res.title) {
+                    // }
                 }
             })).catch(err => {
             //This is the only way (I have found) to verify server is not running
