@@ -58,4 +58,4 @@ render(){
         hashHistory.push('/products');
     }
 }
-export default NewBook();
+export default NewBook;
