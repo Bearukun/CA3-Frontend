@@ -1,5 +1,5 @@
 import React from "react";
-import BookStore from "./BookStore";
+import UserStore from '../stores/userStore';
 import { hashHistory } from 'react-router'
 
 export default class NewBook extends React.Component{
@@ -17,7 +17,7 @@ export default class NewBook extends React.Component{
 
     saveBook= (event)=> {
         //window.alert("lkjd");
-        BookStore.addBook(this.state.book);
+        UserStore.addBook(this.state.book);
         hashHistory.push("/products");
     }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {observer} from "mobx-react";
-import userData from "../stores/adminStore";
+import UserStore from "../stores/adminStore";
 
 const AdminPage = observer(
   class AdminPage extends Component {
@@ -10,7 +10,7 @@ const AdminPage = observer(
       This will fetch data each time you navigate to this route
       Move to constructor, if only required once, or add "logic" to determine when data should be "refetched"
       */
-      userData.getData();
+        UserStore.getData();
     }
 
     render() {
@@ -19,9 +19,9 @@ const AdminPage = observer(
           <h2>Admins</h2>
           <p>Hej!</p>
           <div className="msgFromServer">
-          {userData.messageFromServer}
+          {UserStore.messageFromServer}
           </div>
-          <h4 style={{color: "red"}}>{userData.errorMessage}</h4>
+          <h4 style={{color: "red"}}>{UserStore.errorMessage}</h4>
         </div>
       )
     }

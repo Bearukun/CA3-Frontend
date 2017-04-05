@@ -12,7 +12,6 @@ import AdminPage from "./pages/AdminPage";
 import auth from "./authorization/auth";
 import ManchesterUnited from './pages/ManchesterUnited';
 import Products from './pages/Products';
-import BookStore from './pages/BookStore';
 import BookDetails from './pages/BookDetails';
 import NewBook from "./pages/NewBook";
 import UserStore from './stores/userStore'
@@ -26,7 +25,7 @@ function requireAuth(nextState, replace) {
   }
 }
 
-var books = BookStore.bookstoreBooks;
+var books = UserStore.bookstoreBooks;
 var newBooks = UserStore.allBooks;
 
 
