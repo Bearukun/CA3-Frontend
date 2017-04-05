@@ -73,17 +73,84 @@ class UserStore {
         })
     }
 
+    @action
     addBook = (book)=> {
-        console.log(book.title);
+
+        // console.log(book.title);
+        this.errorMessage = "";
+        this.messageFromServer = "";
+        let errorCode = 200;
+        const options = fetchHelper.makeOptions("POST", true);
+        var conf = {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: book.title,
+                info: book.info,
+                moreInfo: book.moreInfo
+            })
+        };
+        fetch(URL + "api/demoall", conf, options)
+            .then((res) => {
+                if (res.status > 210 || !res.ok) {
+                    errorCode = res.status;
+                }
+                return res.json();
+            })
+            .then(action((res) => {  //Note the action wrapper to allow for useStrict
+                if (errorCode !== 200) {
+                    throw new Error(`${res.error.message} (${res.error.code})`);
+                }
+                else {
+                    const addedBookTitle = res.title;
+                    return addedBookTitle;
+                    // this._books.replace(res);
+                    // this.getBooks();//if book successfully deleted, re-run get books to update local list from new database list
+                }
+            })).catch(err => {
+            //This is the only way (I have found) to verify server is not running
+            this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
+        })
         // UserStore.addBook(this.state.book);
         // hashHistory.push("/products");
     }
 
 
-    @action
-    addBook(book){
-        this._books.push(book);
-    }
+    // function addPerson(){
+    //     var url = "https://139.59.212.171.xip.io/TheBlankPages/api/person";
+    //     var conf = {
+    //         method: 'post',
+    //         headers: {
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             firstName: fname.value,
+    //             lastName: lname.value,
+    //             email: email.value,
+    //             phones: [{number:phone.value,description:phoneDesc.value}],
+    //             address: {street:street.value, additionalInfo:additionalInfo.value, cityInfo:{zipCode: zipCode.value}}
+    //         })
+    //     };
+    //
+    //     var promise = fetch(url, conf);
+    //     promise.then(function(response){
+    //         return response.text();
+    //     }).then(function(text){
+    //         document.getElementById("formPerson").reset();
+    //         document.getElementById("formPerson").style.display='none';
+    //         alert("Person added: "+text);
+    //     });
+    // }
+
+
+    // @action
+    // addBook(book){
+    //     this._books.push(book);
+    // }
 
     @computed
     get bookCount(){

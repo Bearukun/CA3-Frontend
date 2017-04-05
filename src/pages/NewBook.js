@@ -7,7 +7,6 @@ class NewBook extends React.Component{
         super();
         this.state = {
             book:{
-                id: 40,
                 title: "",
                 info: "",
                 moreInfo: ""
@@ -47,15 +46,18 @@ render(){
         )
     }
 
-    addBook(event) {
+    addBook = (event)=> {
         event.preventDefault();
-        console.log(event.target);
-        //const book = event.props.book.title;//save id of button, which is identical to the id of the book to be deleted
-        // UserStore.deleteBook(id);
-        const addedBookTitle = UserStore.addBook(this.state.book);
-        // console.log(deletedBookTitle);
-        // window.alert(feedback);
+        // console.log(event.target.id);//target refers to the button pressed
+        console.log(this.state.book);//target refers to the button pressed
+        UserStore.addBook(this.state.book);
         hashHistory.push('/products');
     }
 }
 export default NewBook;
+
+// const addedBookTitle = UserStore.addBook(this.state.book);
+//const book = event.props.book.title;//save id of button, which is identical to the id of the book to be deleted
+// UserStore.deleteBook(id);
+// console.log(deletedBookTitle);
+// window.alert(feedback);
