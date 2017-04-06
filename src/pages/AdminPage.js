@@ -41,7 +41,10 @@ constructor() {
 
         var lis =  adminStore.users.map((user)=> {
               return (
-                  <li key={user.username}> {user.username} <button id={user.username} onClick={this.removeUser}> Remove User</button></li>
+                  <li key={user.username}>
+                      <b>User Name:</b> <i>{user.username} </i>
+                      <b>Role:</b> <i>{user.roles} </i>
+                      <button id={user.username} onClick={this.removeUser}> Remove User</button></li>
               )
             })
 
