@@ -19,18 +19,17 @@ class NewBook extends React.Component{
 
     handleChange = (event) => {
     // this.setState({value: event.target.value});
+            var book = this.state.book;
+            var id = event.target.id;
 
-        var book = this.state.book;
-        var id = event.target.id;
-
-        if(id === "title"){
-            book.title = event.target.value;
-        } if(id === "info"){
-            book.info = event.target.value;
-        } if(id === "moreInfo"){
-            book.moreInfo = event.target.value;
-        }
-        this.setState({book});
+            if(id === "title"){
+                book.title = event.target.value;
+            } if(id === "info"){
+                book.info = event.target.value;
+            } if(id === "moreInfo"){
+                book.moreInfo = event.target.value;
+            }
+            this.setState({book});
 }
 
 render(){
@@ -39,7 +38,11 @@ render(){
     let book = UserStore.books.filter((book) => {
         return book.id === Number(id);
     })[0];
-    if(id != null) {
+    if(id != null) {//if editing a book
+        //ensure default values are saved if user does not change input fields:
+        this.state.book.title = book.title;
+        this.state.book.info = book.info;
+        this.state.book.moreInfo = book.moreInfo;
         return (
             <div>
                 <h2>Edit Book</h2>
@@ -74,7 +77,7 @@ render(){
     addBook = (event)=> {
         event.preventDefault();
         // console.log(event.target.id);//target refers to the button pressed
-        console.log(this.state.book);//target refers to the button pressed
+        // console.log(this.state.book);//target refers to the button pressed
         UserStore.addBook(this.state.book);
         hashHistory.push('/products');
     }

@@ -6,7 +6,6 @@ class UserStore {
     @observable messageFromServer = "";
     @observable errorMessage = "";
     @observable _books = [];
-    // @observable _users = [];
     @action
     setErrorMessage = (err) => {
     this.errorMessage = err;
@@ -18,7 +17,7 @@ class UserStore {
         this.messageFromServer = "";
         let errorCode = 200;
         const options = fetchHelper.makeOptions("GET", true);
-        fetch(URL + "api/demoall/all", options)
+        fetch(URL + "api/all/allbooks", options)
             .then((res) => {
                 if (res.status > 210 || !res.ok) {
                     errorCode = res.status;
@@ -44,38 +43,7 @@ class UserStore {
     }
 
     @action
-    deleteBook = (id) => {
-        console.log("book id: "+id);//check the id to ensure we've got hold of the right book to delete
-        this.errorMessage = "";
-        this.messageFromServer = "";
-        let errorCode = 200;
-        const options = fetchHelper.makeOptions("DELETE", true);
-        fetch(URL + "api/demoall/delete/"+id, options)
-            .then((res) => {
-                if (res.status > 210 || !res.ok) {
-                    errorCode = res.status;
-                }
-                return res.json();
-            })
-            .then(action((res) => {  //Note the action wrapper to allow for useStrict
-                if (errorCode !== 200) {
-                    throw new Error(`${res.error.message} (${res.error.code})`);
-                }
-                else {
-                    const deletedBookTitle = res.title;
-                    return deletedBookTitle;
-                    // this._books.replace(res);
-                    // this.getBooks();//if book successfully deleted, re-run get books to update local list from new database list
-                }
-            })).catch(err => {
-            //This is the only way (I have found) to verify server is not running
-            this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
-        })
-    }
-
-    @action
-    addBook = (book)=> {
-
+    addBook = (book) => {
         // console.log(book.title);
         this.errorMessage = "";
         this.messageFromServer = "";
@@ -93,7 +61,7 @@ class UserStore {
                 moreInfo: book.moreInfo
             })
         };
-        fetch(URL + "api/demoall", conf, options)
+        fetch(URL + "api/user/add", conf, options)
             .then((res) => {
                 if (res.status > 210 || !res.ok) {
                     errorCode = res.status;
@@ -105,17 +73,14 @@ class UserStore {
                     throw new Error(`${res.error.message} (${res.error.code})`);
                 }
                 else {
+                    this._books.replace(res);
                     const addedBookTitle = res.title;
                     return addedBookTitle;
-                    // this._books.replace(res);
-                    // this.getBooks();//if book successfully deleted, re-run get books to update local list from new database list
                 }
             })).catch(err => {
             //This is the only way (I have found) to verify server is not running
             this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
         })
-        // UserStore.addBook(this.state.book);
-        // hashHistory.push("/products");
     }
 
     @action
@@ -137,7 +102,7 @@ class UserStore {
                 moreInfo: book.moreInfo
             })
         };
-        fetch(URL + "api/demoall/edit", conf, options)
+        fetch(URL + "api/user/edit", conf, options)
             .then((res) => {
                 if (res.status > 210 || !res.ok) {
                     errorCode = res.status;
@@ -160,46 +125,14 @@ class UserStore {
         // hashHistory.push("/products");
     }
 
-
-    // @action
-    // getData = () => {
-    //     this.errorMessage = "";
-    //     this.messageFromServer = "";
-    //     let errorCode = 200;
-    //     const options = fetchHelper.makeOptions("GET", true);
-    //     fetch(URL + "api/user", options)
-    //         .then((res) => {
-    //             if (res.status > 200 || !res.ok) {
-    //                 errorCode = res.status;
-    //             }
-    //             return res.json();
-    //         })
-    //         .then((res) => {
-    //             if (errorCode !== 200) {
-    //                 throw new Error(`${res.error.message} (${res.error.code})`);
-    //             }
-    //             else {
-    //                 this._users.replace(res);
-    //             }
-    //         }).catch(err => {
-    //         //This is the only way (I have found) to veryfy server is not running
-    //         this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
-    //     })
-    // }
-
-    // @computed
-    // get users(){
-    //     return this._users;
-    // }
-
-    //imp:
     @action
-    getData = () => {
+    deleteBook = (id) => {
+        // console.log("book id: "+id);//check the id to ensure we've got hold of the right book to delete
         this.errorMessage = "";
         this.messageFromServer = "";
         let errorCode = 200;
-        const options = fetchHelper.makeOptions("GET", true);
-        fetch(URL + "api/demoadmin/all", options)
+        const options = fetchHelper.makeOptions("DELETE", true);
+        fetch(URL + "api/user/delete/"+id, options)
             .then((res) => {
                 if (res.status > 210 || !res.ok) {
                     errorCode = res.status;
@@ -211,49 +144,17 @@ class UserStore {
                     throw new Error(`${res.error.message} (${res.error.code})`);
                 }
                 else {
-                    // this._users = res;
-                    this._users.replace(res);
-                    // this.messageFromServer = res.message;
+                    console.log("deletedBookTitle: "+res.title);
+                    // const deletedBookTitle = res.title;
+                    // return deletedBookTitle;
+                    // this._books.replace(res);
+                    // this.getBooks();//if book successfully deleted, re-run get books to update local list from new database list
                 }
             })).catch(err => {
             //This is the only way (I have found) to verify server is not running
             this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
         })
-    };
-
-
-    // function addPerson(){
-    //     var url = "https://139.59.212.171.xip.io/TheBlankPages/api/person";
-    //     var conf = {
-    //         method: 'post',
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             firstName: fname.value,
-    //             lastName: lname.value,
-    //             email: email.value,
-    //             phones: [{number:phone.value,description:phoneDesc.value}],
-    //             address: {street:street.value, additionalInfo:additionalInfo.value, cityInfo:{zipCode: zipCode.value}}
-    //         })
-    //     };
-    //
-    //     var promise = fetch(url, conf);
-    //     promise.then(function(response){
-    //         return response.text();
-    //     }).then(function(text){
-    //         document.getElementById("formPerson").reset();
-    //         document.getElementById("formPerson").style.display='none';
-    //         alert("Person added: "+text);
-    //     });
-    // }
-
-
-    // @action
-    // addBook(book){
-    //     this._books.push(book);
-    // }
+    }
 
     @computed
     get bookCount(){
