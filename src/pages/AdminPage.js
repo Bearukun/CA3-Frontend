@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {observer} from "mobx-react";
 import adminStore from "../stores/adminStore";
+//import {Link} from "react-router/es/Link";
 // import auth from '../authorization/auth';
 
 // const AdminPage = observer(
@@ -17,6 +18,7 @@ import adminStore from "../stores/adminStore";
 constructor() {
     super();
     adminStore.getData();
+
 }
 
     render() {
@@ -34,9 +36,12 @@ constructor() {
 
 
 
+
+
+
         var lis =  adminStore.users.map((user)=> {
               return (
-                  <li key={user.username}> {user.username}</li>
+                  <li key={user.username}> {user.username} <button id={user.username} onClick={this.removeUser}> Remove User</button></li>
               )
             })
 
@@ -44,7 +49,7 @@ constructor() {
         <div>
           <h2>User administration</h2>
 
-          <div className="msgFromServer">
+          <div>
               {/*{auth.loggedIn && auth.isAdmin?//only show if logged in and a user*/}
                   {/*<ul>{lis}</ul>*/}
                   {/*: null}*/}
@@ -59,6 +64,12 @@ constructor() {
           <h4 style={{color: "red"}}>{adminStore.errorMessage}</h4>
         </div>
       )
+    }
+
+
+    removeUser(event) {
+        const id = event.target.id;//save id of button
+         adminStore.deleteUser(id);
     }
 
   }
