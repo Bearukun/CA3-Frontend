@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {observer} from "mobx-react";
 import adminStore from "../stores/adminStore";
-//import {Link} from "react-router/es/Link";
+import {Link, hashHistory} from "react-router";
 // import auth from '../authorization/auth';
 
 // const AdminPage = observer(
@@ -44,7 +44,11 @@ constructor() {
                   <li key={user.username}>
                       <b>User Name:</b> <i>{user.username} </i>
                       <b>Role:</b> <i>{user.roles} </i>
-                      <button id={user.username} onClick={this.removeUser}> Remove User</button></li>
+                      <button id={user.username} onClick={this.removeUser}> Remove User</button>
+                      <Link to={`admin/newuser/${user.username}`}>(Edit User)</Link>
+
+                  </li>
+
               )
             })
 
@@ -57,6 +61,7 @@ constructor() {
                   {/*<ul>{lis}</ul>*/}
                   {/*: null}*/}
               <ul>{lis}</ul>
+              <button onClick={this.toNewUser}>New User</button>
           {/*{adminStore.messageFromServer}*/}
 
 
@@ -73,6 +78,9 @@ constructor() {
     removeUser(event) {
         const id = event.target.id;//save id of button
          adminStore.deleteUser(id);
+    }
+    toNewUser(){
+        hashHistory.push('admin/newuser')
     }
 
   }

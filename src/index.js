@@ -15,6 +15,7 @@ import Products from './pages/Products';
 import BookDetails from './pages/BookDetails';
 import NewBook from "./pages/NewBook";
 import UserStore from './stores/userStore'
+import NewUser from "./pages/NewUser";
 
 // function requireAuth(nextState, replace) {
 //   if (!auth.loggedIn) {
@@ -39,6 +40,8 @@ ReactDOM.render((
       <Route path="about" component={About} />
       <Route path="user" component={UserPage} />
       <Route path="admin" component={AdminPage} />
+      <Route path="admin/newuser" component={NewUser} />
+      <Route path="admin/newuser/:username" component={NewUser} />
       <Route path="manu" component={ManchesterUnited} />
       <Route path="products/add" component={NewBook} />
       <Route path="products/add/:id" component={NewBook}  />
