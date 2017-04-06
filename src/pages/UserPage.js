@@ -15,17 +15,17 @@ const UserPage = observer(
 
     render() {
 
-        var lis = UserStore.books.map(function(book){
-            return(
-                <li key={book.id}>{book.title}</li>
-            )
-        })
+        // var lis = UserStore.books.map(function(book){
+        //     return(
+        //         <li key={book.id}>{book.title}</li>
+        //     )
+        // })
 
 
       return (
           <div>
               <h2>Clubs: (Liverpool is the best!!!)</h2>
-              <ul>{lis}</ul>
+              {/*<ul>{lis}</ul>*/}
           </div>
       )
     }

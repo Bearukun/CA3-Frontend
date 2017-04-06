@@ -9,6 +9,10 @@ class AdminStore {
   @observable messageFromServer = "";
   @observable errorMessage = "";
   @observable _users = [];
+    //
+    // constructor() {
+    //     this.getData();
+    // }
 
   @action
   setErrorMessage(err) {
@@ -19,100 +23,37 @@ class AdminStore {
     this.messageFromServer = msg;
   }
 
+    @action
+    getData = () => {
+        this.errorMessage = "";
+        this.messageFromServer = "";
+        let errorCode = 200;
+        const options = fetchHelper.makeOptions("GET", true);
 
-    // @action
-    // getUsers = () => {
-    //     this.errorMessage = "";
-    //     this.messageFromServer = "";
-    //     let errorCode = 200;
-    //     const options = fetchHelper.makeOptions("GET", true);
-    //     var conf = {
-    //         method: 'get',
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json',
-    //             'Access-Control-Allow-Origin': '*',
-    //             'Authorization': 'Admin'
-    //         }
-    //     };
-    //     // fetch(URL + "api/demoadmin/all", options)
-    //     fetch(URL + "api/demoadmin", options)
-    //         .then((res) => {
-    //             if (res.status > 210 || !res.ok) {
-    //                 errorCode = res.status;
-    //             }
-    //             return res.json();
-    //         })
-    //         .then(action((res) => {  //Note the action wrapper to allow for useStrict
-    //             if (errorCode !== 200) {
-    //                 throw new Error(`${res.error.message} (${res.error.code})`);
-    //             }
-    //             else {
-    //                 this._users.replace(res);
-    //             }
-    //         })).catch(err => {
-    //         //This is the only way (I have found) to verify server is not running
-    //         this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
-    //     })
-    // }
-    //
-  @action
-  getData = () => {
-    this.errorMessage = "";
-    this.messageFromServer = "";
-    let errorCode = 200;
-    const options = fetchHelper.makeOptions("GET", true);
-    fetch(URL + "api/demoadmin", options)
-      .then((res) => {
-        if (res.status > 200 || !res.ok) {
-          errorCode = res.status;
-        }
-        return res.json();
-      })
-      .then((res) => {
-        if (errorCode !== 200) {
-          throw new Error(`${res.error.message} (${res.error.code})`);
-        }
-        else {
+        fetch(URL + "api/demoadmin/all", options)
+            .then((res) => {
+                if (res.status > 210 || !res.ok) {
+                    errorCode = res.status;
+                }
+                return res.json();
+            })
+            .then(action((res) => {  //Note the action wrapper to allow for useStrict
+                if (errorCode !== 200) {
+                    throw new Error(`${res.error.message} (${res.error.code})`);
+                }
+                else {
+                    this._users.replace(res.users);
+                }
+            })).catch(err => {
+            //This is the only way (I have found) to verify server is not running
+            this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
+        })
+    };
 
-
-          this._users.replace(res);
-        }
-      }).catch(err => {
-        //This is the only way (I have found) to veryfy server is not running
-        this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
-      })
-  }
     @computed
     get users(){
         return this._users;
     }
-  //   @action
-  //   getData = () => {
-  //       this.errorMessage = "";
-  //       this.messageFromServer = "";
-  //       let errorCode = 200;
-  //       const options = fetchHelper.makeOptions("GET", true);
-  //       fetch(URL + "api/demoadmin", options)
-  //           .then((res) => {
-  //               if (res.status > 200 || !res.ok) {
-  //                   errorCode = res.status;
-  //               }
-  //               return res.json();
-  //           })
-  //           .then((res) => {
-  //               if (errorCode !== 200) {
-  //                   throw new Error(`${res.error.message} (${res.error.code})`);
-  //               }
-  //               else {
-  //                   this.setMessageFromServer(res.message);
-  //               }
-  //           }).catch(err => {
-  //           //This is the only way (I have found) to veryfy server is not running
-  //           this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
-  //       })
-  //   }
-
 }
 let adminStore = new AdminStore(URL);
 

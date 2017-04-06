@@ -6,7 +6,7 @@ class UserStore {
     @observable messageFromServer = "";
     @observable errorMessage = "";
     @observable _books = [];
-
+    // @observable _users = [];
     @action
     setErrorMessage = (err) => {
     this.errorMessage = err;
@@ -161,6 +161,67 @@ class UserStore {
     }
 
 
+    // @action
+    // getData = () => {
+    //     this.errorMessage = "";
+    //     this.messageFromServer = "";
+    //     let errorCode = 200;
+    //     const options = fetchHelper.makeOptions("GET", true);
+    //     fetch(URL + "api/user", options)
+    //         .then((res) => {
+    //             if (res.status > 200 || !res.ok) {
+    //                 errorCode = res.status;
+    //             }
+    //             return res.json();
+    //         })
+    //         .then((res) => {
+    //             if (errorCode !== 200) {
+    //                 throw new Error(`${res.error.message} (${res.error.code})`);
+    //             }
+    //             else {
+    //                 this._users.replace(res);
+    //             }
+    //         }).catch(err => {
+    //         //This is the only way (I have found) to veryfy server is not running
+    //         this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
+    //     })
+    // }
+
+    // @computed
+    // get users(){
+    //     return this._users;
+    // }
+
+    //imp:
+    @action
+    getData = () => {
+        this.errorMessage = "";
+        this.messageFromServer = "";
+        let errorCode = 200;
+        const options = fetchHelper.makeOptions("GET", true);
+        fetch(URL + "api/demoadmin/all", options)
+            .then((res) => {
+                if (res.status > 210 || !res.ok) {
+                    errorCode = res.status;
+                }
+                return res.json();
+            })
+            .then(action((res) => {  //Note the action wrapper to allow for useStrict
+                if (errorCode !== 200) {
+                    throw new Error(`${res.error.message} (${res.error.code})`);
+                }
+                else {
+                    // this._users = res;
+                    this._users.replace(res);
+                    // this.messageFromServer = res.message;
+                }
+            })).catch(err => {
+            //This is the only way (I have found) to verify server is not running
+            this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
+        })
+    };
+
+
     // function addPerson(){
     //     var url = "https://139.59.212.171.xip.io/TheBlankPages/api/person";
     //     var conf = {
@@ -199,4 +260,9 @@ class UserStore {
         return this._books.length
     }
 }
-export default new UserStore();
+
+let userStore = new UserStore();
+
+//Only for debugging
+//window.userStore = userStore;
+export default userStore;

@@ -1,29 +1,42 @@
 import React, { Component } from 'react'
 import {observer} from "mobx-react";
-import AdminStore from "../stores/adminStore";
+import adminStore from "../stores/adminStore";
 import auth from '../authorization/auth';
 
-const AdminPage = observer(
+// const AdminPage = observer(
+@observer
   class AdminPage extends Component {
 
-    componentWillMount() {
-      /*
-      This will fetch data each time you navigate to this route
-      Move to constructor, if only required once, or add "logic" to determine when data should be "refetched"
-      */
-        AdminStore.getData();
-    }
+    // componentWillMount() {
+    //   /*
+    //   This will fetch data each time you navigate to this route
+    //   Move to constructor, if only required once, or add "logic" to determine when data should be "refetched"
+    //   */
+    //     adminStore.getData();
+    // }
+constructor() {
+    super();
+    adminStore.getData();
+}
 
     render() {
 
-        // var lis = AdminStore.users.map(function(user){
+        // var lis = adminStore.users.map(function(user){
         //     return(
         //         <li key={user.userName}>{user.role}</li>
         //     )
         // })
-          var lis =  AdminStore.users.map(function(user) {
+
+
+        // var lis =  adminStore.users.map(function(user) {
+        // var lis =  adminStore.users.map(function(user) {
+        // var lis =  adminStore.users.map(function(user)=> {
+
+
+
+        var lis =  adminStore.users.map((user)=> {
               return (
-                  <li key={user.userName}> {user.userName}</li>
+                  <li key={user.userName}> {user.username}</li>
               )
             })
 
@@ -36,18 +49,18 @@ const AdminPage = observer(
                   {/*<ul>{lis}</ul>*/}
                   {/*: null}*/}
               <ul>{lis}</ul>
-          {/*{AdminStore.messageFromServer}*/}
+          {/*{adminStore.messageFromServer}*/}
 
 
 
-              {/*{AdminStore.messageFromServer}*/}
+              {/*{adminStore.messageFromServer}*/}
 
           </div>
-          <h4 style={{color: "red"}}>{AdminStore.errorMessage}</h4>
+          <h4 style={{color: "red"}}>{adminStore.errorMessage}</h4>
         </div>
       )
     }
 
   }
-)
+// )
 export default AdminPage;
