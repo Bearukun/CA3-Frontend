@@ -97,14 +97,14 @@ class NewUser extends React.Component{
         // console.log(event.target.id);//target refers to the button pressed
         // console.log(this.state.book);//target refers to the button pressed
         adminStore.addUser(this.state.user);
-        hashHistory.push('/products');
+        hashHistory.push('/admin');
     }
 
     editUser = (event)=> {
         event.preventDefault();
         this.state.user.username = event.target.id;
         adminStore.editUser(this.state.user);
-        hashHistory.push('/products');
+        hashHistory.push('/admin');
     }
 
 }

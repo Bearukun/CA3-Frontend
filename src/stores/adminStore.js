@@ -80,6 +80,55 @@ class AdminStore {
         })
     }
 
+    @action
+    addUser = (user) => {
+        // console.log(book.title);
+        this.errorMessage = "";
+        this.messageFromServer = "";
+        let errorCode = 200;
+        const options = fetchHelper.makeOptions("POST", true);
+        var conf = {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+
+                // USER_NAME: user.username,
+                // PASSWORD_HASH: "test",
+                // roles_ROLE_NAME: user.roles,
+                // users_USER_NAME: user.username
+
+                USER_NAME: "Jobs",
+                PASSWORD_HASH: "test",
+                roles_ROLE_NAME: "Admin",
+                users_USER_NAME: "Jobs"
+
+            })
+        };
+        fetch(URL + "api/admin/add", conf, options)
+            .then((res) => {
+                if (res.status > 210 || !res.ok) {
+                    errorCode = res.status;
+                }
+                return res.json();
+            })
+            .then(action((res) => {  //Note the action wrapper to allow for useStrict
+                if (errorCode !== 200) {
+                    throw new Error(`${res.error.message} (${res.error.code})`);
+                }
+                else {
+                    this._users.replace(res);
+                    const addedUser = res.username;
+                    return addedUser;
+                }
+            })).catch(err => {
+            //This is the only way (I have found) to verify server is not running
+            this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
+        })
+    }
+
 
 
 
