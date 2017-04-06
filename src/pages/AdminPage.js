@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {observer} from "mobx-react";
 import adminStore from "../stores/adminStore";
-import auth from '../authorization/auth';
+// import auth from '../authorization/auth';
 
 // const AdminPage = observer(
 @observer
@@ -36,7 +36,7 @@ constructor() {
 
         var lis =  adminStore.users.map((user)=> {
               return (
-                  <li key={user.userName}> {user.username}</li>
+                  <li key={user.username}> {user.username}</li>
               )
             })
 

@@ -73,11 +73,8 @@ export default class BookDetails extends React.Component {
   }
 
     editBook(event) {
-        const id = event.target.id;//save id of button, which is identical to the id of the book to be deleted
-
+        // const id = event.target.id;//save id of button, which is identical to the id of the book to be deleted
         UserStore.editBook(this.state.book);
-
-
         hashHistory.push('/products');
     }
 

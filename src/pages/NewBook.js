@@ -43,6 +43,7 @@ render(){
         this.state.book.title = book.title;
         this.state.book.info = book.info;
         this.state.book.moreInfo = book.moreInfo;
+
         return (
             <div>
                 <h2>Edit Book</h2>
@@ -96,3 +97,12 @@ export default NewBook;
 // UserStore.deleteBook(id);
 // console.log(deletedBookTitle);
 // window.alert(feedback);
+
+
+// this.setState({
+//     book: {
+//         title: book.title,
+//         info: book.info,
+//         moreInfo: book.moreInfo
+//     }
+// });
