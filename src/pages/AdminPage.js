@@ -47,7 +47,7 @@ constructor() {
                       <b>Role:</b> <i>{user.roles} </i>
                       <button id={user.username} onClick={this.removeUser}> Remove User</button>
 
-                      {auth.loggedIn && auth.isAdmin?
+                      {auth.loggedIn && auth.isAdmin?//need to be admin and logged in to see this
                       <Link to={`admin/newuser/${user.username}`}>(Edit User)</Link>
                           : null}
                   </li>

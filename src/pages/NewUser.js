@@ -1,6 +1,6 @@
 import React from 'react'
 import adminStore from '../stores/adminStore';
-import { hashHistory } from 'react-router'
+import { Link, hashHistory } from 'react-router'
 
 
 class NewUser extends React.Component{
@@ -23,14 +23,14 @@ class NewUser extends React.Component{
 
         if(id === "USER_NAME"){
             user.USER_NAME = event.target.value;
-        } if(id === "PASSWORD_HASH"){
-            user.PASSWORD_HASH= event.target.value;
-        } if(id === "roles_ROLE_NAME"){
-            user.roles_ROLE_NAME = event.target.value;
-        } if(id === "users_USER_NAME"){
-            user.users_USER_NAME = event.target.value;
         }
-
+        if(id === "PASSWORD_HASH"){
+            user.PASSWORD_HASH= event.target.value;
+        }
+        if(id === "roleDropdown"){
+            var e = document.getElementById("roleDropdown");
+            var strUser = e.options[e.selectedIndex].value;}
+        user.roles_ROLE_NAME = strUser;
         this.setState({user});
     }
 
@@ -57,6 +57,7 @@ class NewUser extends React.Component{
                         <button id={id} onClick={this.editUser}>Save User</button>
                         <p>{JSON.stringify(this.state.user)}</p>
                     </form>
+                    <Link to="/admin">Administration</Link>
                 </div>
             )
 
@@ -68,12 +69,15 @@ class NewUser extends React.Component{
                     <h2>New User</h2>
                     <form>
                         <input onChange={this.handleChange} id="USER_NAME" type="text" placeholder="New User"/><br/>
-                        <input onChange={this.handleChange} id="roles_ROLE_NAME" type="text" placeholder="New Role"/><br/>
-                        {/*<input onChange={this.handleChange} id="roles_ROLE_NAME" type="text" placeholder={theuser.roles_ROLE_NAME}/><br/>*/}
-                        {/*<input onChange={this.handleChange} id="users_USER_NAME" type="text" placeholder={theuser.users_USER_NAME}/><br/>*/}
+                            <select id="roleDropdown" onChange={this.handleChange} defaultValue="User">
+                                <option value="Admin">Admin</option>
+                                <option value="User">User</option>
+                            </select>
+                        <input onChange={this.handleChange} id="PASSWORD_HASH" type="text" placeholder="New Password"/><br/>
                         <button id={id} onClick={this.addUser}>Save User</button>
                         <p>{JSON.stringify(this.state.user)}</p>
                     </form>
+                    <Link to="/admin">Administration</Link>
                 </div>
             )
         }
@@ -97,9 +101,10 @@ class NewUser extends React.Component{
          // console.log("id: "+event.target.id);//target refers to the button pressed
          // console.log("username: "+this.state.user.USER_NAME);//target refers to the button pressed
          // console.log("role: "+this.state.user.roles_ROLE_NAME);//target refers to the button pressed
+         // console.log("password: "+this.state.user.PASSWORD_HASH);//target refers to the button pressed
 
          adminStore.addUser(this.state.user);
-         //hashHistory.push('/admin');
+         // hashHistory.push('/admin');
     }
 
     editUser = (event)=> {

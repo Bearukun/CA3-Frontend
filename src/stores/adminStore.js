@@ -50,6 +50,7 @@ class AdminStore {
         })
     };
     @action
+        //we still need to refresh the UI upon deletion!
     deleteUser = (userName) => {
         // console.log("book id: "+id);//check the id to ensure we've got hold of the right book to delete
         this.errorMessage = "";
@@ -87,23 +88,48 @@ class AdminStore {
         this.messageFromServer = "";
         let errorCode = 200;
         const options = fetchHelper.makeOptions("POST", true);
+
+        // var userName = user.USER_NAME;
+        // var passwordHash = user.PASSWORD_HASH;
+        // var roles = user.roles_ROLE_NAME;
+
+
+
+
         var conf = {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
+            // body: JSON.stringify(user)
             body: JSON.stringify({
+                // User from input form user to add:
+                userName: user.USER_NAME,
+                passwordHash: user.PASSWORD_HASH,
 
-                // USER_NAME: user.username,
-                // PASSWORD_HASH: "test",
+                // roles:user.roles_ROLE_NAME
+                roles:
+                [{
+                    role: user.roles_ROLE_NAME
+                    }
+                ]
+
+
+
+
                 // roles_ROLE_NAME: user.roles,
                 // users_USER_NAME: user.username
 
-                USER_NAME: "Jobs",
-                PASSWORD_HASH: "test",
-                roles_ROLE_NAME: "Admin",
-                users_USER_NAME: "Jobs"
+                //Hard-coded user to add:
+                // userName: "Jobs",
+                // passwordHash: "test",
+
+
+                // USER_NAME: "Jobs",
+                // PASSWORD_HASH: "test",
+                // roles_ROLE_NAME: "Admin",
+                // users_USER_NAME: "Jobs"
 
             })
         };
@@ -118,10 +144,11 @@ class AdminStore {
                 if (errorCode !== 200) {
                     throw new Error(`${res.error.message} (${res.error.code})`);
                 }
-                else {
-                    this._users.replace(res);
-                    const addedUser = res.username;
-                    return addedUser;
+                else {//if status code 200...
+                    window.alert(res.userName);
+                    // this._users.replace(res);
+                    // const addedUser = res.username;
+                    // return addedUser;
                 }
             })).catch(err => {
             //This is the only way (I have found) to verify server is not running
