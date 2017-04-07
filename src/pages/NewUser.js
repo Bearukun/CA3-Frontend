@@ -104,7 +104,7 @@ class NewUser extends React.Component{
          // console.log("password: "+this.state.user.PASSWORD_HASH);//target refers to the button pressed
 
          adminStore.addUser(this.state.user);
-         // hashHistory.push('/admin');
+         hashHistory.push('/admin');
     }
 
     editUser = (event)=> {
