@@ -82,7 +82,7 @@ class AdminStore {
 
     @action
     addUser = (user) => {
-        // console.log(book.title);
+        // console.log(user.toString());
         this.errorMessage = "";
         this.messageFromServer = "";
         let errorCode = 200;

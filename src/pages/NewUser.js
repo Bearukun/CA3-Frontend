@@ -94,10 +94,12 @@ class NewUser extends React.Component{
 
     addUser = (event)=> {
         event.preventDefault();
-        // console.log(event.target.id);//target refers to the button pressed
-        // console.log(this.state.book);//target refers to the button pressed
-        adminStore.addUser(this.state.user);
-        hashHistory.push('/admin');
+         // console.log("id: "+event.target.id);//target refers to the button pressed
+         // console.log("username: "+this.state.user.USER_NAME);//target refers to the button pressed
+         // console.log("role: "+this.state.user.roles_ROLE_NAME);//target refers to the button pressed
+
+         adminStore.addUser(this.state.user);
+         //hashHistory.push('/admin');
     }
 
     editUser = (event)=> {
@@ -109,4 +111,4 @@ class NewUser extends React.Component{
 
 }
 
-export default NewUser
+export default NewUser;
