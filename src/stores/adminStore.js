@@ -110,9 +110,11 @@ class AdminStore {
 
                 // roles:user.roles_ROLE_NAME
                 roles:
-                [{
-                    role: user.roles_ROLE_NAME
-                    }
+                [
+
+                    user.roles_ROLE_NAME
+                    // role: user.roles_ROLE_NAME
+
                 ]
 
 
